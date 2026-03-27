@@ -23,6 +23,19 @@ def get_problem_data(problem_id):
         # Imprimimos por si hay algun error
         print(f"Error en la conexion con la API: {e}")
         return None
+
+def send_solution(problem_id, list_solution) :
+    "Metodo para enviar la lista de gemas encontradas a la API (POST)"
+    url = f"{url_base}/problem/solution/{problem_id}"
+    data = {"solution": list_solution} # Con esto creamos paquetes de datos 
+
+    try : 
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e : 
+        print(f"Hay error al enviar la solucion: {e}")
+        return None
     
 # Una vez conectados a la API con respuesta exitosa, procedemos con la logica para buscar las gemas en la sopa de letras
 def find_gems_in_matrix(matrix) : 
@@ -67,3 +80,11 @@ if __name__ == "__main__" :
         results = find_gems_in_matrix(matrix)
         # Imprimimos las gemas localizados
         print(f"Gemas encontradas : {results}")
+
+        # Procedemos a enviar la solucion
+        print("\nEnviando respuesta a JARVIS...")
+        result = send_solution(1, results)
+
+        if result :
+            print("*** Respuesta del Servidor ***")
+            print(result)
