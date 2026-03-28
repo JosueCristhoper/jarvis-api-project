@@ -12,6 +12,7 @@ headers = {
     "candidate-key" : os.getenv("CANDIDATE_KEY")
 }
 
+# Enviamos solucion
 def send_solution(problem_id, query_sql) : 
     url = f"{url_base}/problem/solution/{problem_id}"
     data = {"solution": query_sql}
@@ -25,6 +26,7 @@ def send_solution(problem_id, query_sql) :
         print(f"Se ha producido un error al enviar: {e}")
         return None
     
+# Realizamos consultas requeridas
 if __name__ == "__main__" : 
     # Guardamos las sentencias SQL
     query_A =  '''SELECT location.name
@@ -42,6 +44,7 @@ if __name__ == "__main__" :
                  WHERE location_id IN (SELECT current_location_id
                                        FROM avenger);'''
 
+    # Guardamos estas consultas
     queries = [query_A, query_B, query_C]
 
     print("Sentencia SQL a JARVIS ")

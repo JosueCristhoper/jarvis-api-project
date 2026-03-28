@@ -37,17 +37,17 @@ Este proyecto sigue las mejores prácticas de seguridad, evitando la exposición
 
 ---
 
-## Problema 1: Localización de Gemas del Infinito
+## Problema 1: Encontrar las Gemas del Infinito
 
 ### Descripción
-El objetivo consiste en consumir un endpoint que devuelve una matriz de caracteres (sopa de letras) y programar un algoritmo capaz de localizar terminos específicos (Gemas del Infinito).
+El objetivo consiste en trabajar con un endpoint que devuelve una matriz de caracteres y programar un algoritmo capaz de encontrar ciertas palabras requeridas (Gemas del Infinito).
 
 ### Implementación Tecnica
-Se ha desarrollado un algoritmo de búsqueda bidireccional:
-* **Búsqueda Horizontal:** Análisis de cada fila mediante concatenación de caracteres.
-* **Búsqueda Vertical:** Transposición lógica de la matriz para evaluar columnas como secuencias de texto independientes.
+Se implemento un algoritmo de busqueda en dos direcciones: 
+* **Búsqueda Horizontal:** Recorri cada fila uniendo los caracteres para poder identificar las palabras dentro de ellas.
+* **Búsqueda Vertical:** Converti las columnas en filas para poder analizarlas de la misma manera que las horizontales
 
-Una vez localizados los elementos, el sistema realiza una petición **POST** para validar la solución con el servidor.
+Una vez encontré todas las palabras necesarias, envie el resultado al servidor mediante una petición  **POST** para comprobar si la solución era correcta.
 
 ---
 
