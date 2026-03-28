@@ -18,10 +18,25 @@ def get_satellites():
     response = requests.get(url, headers=headers)
     return response.json().get("satellites")
 
+# Pasamos a '/where_is_ironman'
+def get_location_ironman() :
+    url = f"{url_base}/where_is_ironman"
+    try : 
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json().get("ironman_location")
+    except Exception as e :
+        print(f"Error al intentar localizar a Ironman: {e}")
+        return None
+
+
 # Primero intentamos ejecutar para poder ver los satelites de stark
 if __name__ == "__main__" :
     print("Conectamos con los satelites de Stark...")
     list_satellites = get_satellites()
+
+    # Creamos variable y guardamos la funcion get_location_ironman, para proceder realizar una condicion
+    destino_ironman = get_location_ironman()
 
     if list_satellites : 
         print("Datos recibidos correctamente")
@@ -33,6 +48,12 @@ if __name__ == "__main__" :
         for s in list_satellites : 
             print("----------------------------------------------------------------------------------")
             print(s)
+        
+        # Procedemos a imprimir la ubicacion de Ironman, llamamos la funcion
+        if destino_ironman :
+            print(f"Ironman se encuentra en: {destino_ironman}")
+        else : 
+            print(f"No se pudo localizar a Ironman...")
     
     else :
         print("No se pudo encontrar ningun satelite")
