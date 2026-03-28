@@ -64,7 +64,7 @@ def find_gems_in_matrix(matrix) :
 
     
 if __name__ == "__main__" : 
-    # Reto 1 : Encontrar las gemas del infinito
+    # Problema 1 de las gemas del infinito
     data = get_problem_data(1)
 
     if data : 
