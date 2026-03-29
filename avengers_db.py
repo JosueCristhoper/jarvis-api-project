@@ -13,21 +13,22 @@ headers = {
 }
 
 # Enviamos solucion
-def send_solution(problem_id, query_sql) : 
+def send_solution(problem_id, query_sql): 
     url = f"{url_base}/problem/solution/{problem_id}"
     data = {"solution": query_sql}
 
-    try : 
+    try: 
         response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         return response.json()
     
-    except requests.exceptions.RequestException as e : 
+    except requests.exceptions.RequestException as e: 
         print(f"Se ha producido un error al enviar: {e}")
         return None
     
 # Realizamos consultas requeridas
-if __name__ == "__main__" : 
+if __name__ == "__main__":
+    # Consultas SQL basadas en el esquema de la base de datos de JARVIS.
     # Guardamos las sentencias SQL
     query_A =  '''SELECT location.name
                    FROM avenger
@@ -50,5 +51,5 @@ if __name__ == "__main__" :
     print("Sentencia SQL a JARVIS ")
     result = send_solution(2, queries)
 
-    if result :
+    if result:
         print(result)

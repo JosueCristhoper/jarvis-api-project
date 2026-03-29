@@ -66,7 +66,26 @@ Al final, envio estas tres sentencias en una lista a traves de un **POST** a la 
 
 ---
 
+## Problema 3: Pasar al ataque - Localizar a Ironman
+
+En este problema, el objetivo era encontrar a Tony Stark usando la red de satélites y calcular la mejor ruta para llegar hasta él desde New York.
+
+### ¿Cómo funciona mi solución?
+He programado un sistema que no solo busca a Ironman, sino que decide la ruta paso a paso basándose en dos reglas muy sencillas:
+
+1. **Radar de proximidad:** Lo primero que hace mi programa en cada parada es mirar si Ironman está en un satélite de al lado. Si lo ve, va directo a por él.
+2. **Ahorro por clima:** Si Ironman todavia esta lejos, el programa mira el tiempo en los satélites cercanos y elige el que menos combustible gasta (porque no gasta lo mismo volar con clima despejado que con tormenta o lluvia).
+
+### Puntos clave del proyecto:
+* **Seguridad:** El programa recuerda por donde ha pasado para no quedarse dando vueltas en círculo (bucle).
+* **Adaptabilidad:** No importa si Ironman se mueve o si el tiempo cambia; el código consulta la información en tiempo real antes de cada movimiento.
+* **Eficiencia:** El sistema prioriza llegar al destino de la forma más lógica posible, adaptandose a cualquier cambio si en el futuro cambia el origen de partida y e destino, incluso si se modifica los satelites.
+* **Reporte de Telemetría:** Una vez alcanzado el objetivo o finalizada la ruta, el sistema envía un informe final a la API de Stark que incluye la ruta completa recorrida y el combustible restante, asegurando que J.A.R.V.I.S. tenga los datos actualizados.
+
+---
+
 ## Instrucciones de Ejecución
-Para iniciar los procesos de resolución:
+Para ver los resultados en la consola, solo hay que ejecutar:
 * **Problema 1:** `python infinity_gems.py`
 * **Problema 2:** `python avengers_db.py`
+* **Problema 3:** `python ironman_route.py`
