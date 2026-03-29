@@ -1,6 +1,6 @@
 # JARVIS API Project - Infinity Gems
 
-Este repositorio contiene la resolución de una serie de retos tecnicos de logica y programación realizados a través de una API REST. El proyecto se centra en la integración de servicios, procesamiento de datos y seguridad.
+Este repositorio contiene la resolución de una serie de problemas tecnicos de logica y programación realizados a través de una API REST. El proyecto se centra en la integración de servicios, procesamiento de datos y seguridad.
 
 ---
 

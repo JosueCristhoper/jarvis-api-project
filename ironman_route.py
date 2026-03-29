@@ -51,14 +51,14 @@ if __name__ == "__main__" :
         
         # Procedemos a imprimir la ubicacion de Ironman, llamamos la funcion
         if ironman_location :
-            print(f"Ironman se encuentra en: {ironman_location}")
+            print(f"\n***** Ironman se encuentra en: {ironman_location} ******")
         else : 
             print(f"No se pudo localizar a Ironman...")
     
     else :
         print("No se pudo encontrar ningun satelite")
 
-    # Calculamos la mejor ruta
+    # Calculamos la mejor ruta - (Codigo nivel intermedio)
     if list_satellites and ironman_location :
         # Pasamos la lista a un diccionario para la busqueda rapida
         sats_dict = {s["id"]: s for s in list_satellites}
@@ -68,7 +68,7 @@ if __name__ == "__main__" :
         location_I = ["New York"]
         visited_ids = [1]
 
-        print(f"Empezamos el viaje hacia: {ironman_location}...\n")
+        print(f"\nEmpezamos el viaje hacia: {ironman_location}...\n")
 
         # Realizamos bucle hasta llegar al destino teniendo combustible
         while sats_dict[origin_location_id]["location"] != ironman_location and intial_fuel > 0 : 
@@ -77,22 +77,39 @@ if __name__ == "__main__" :
             best_sat = None
             cost_min = 999 # Le ponemos un dato alto como referencia
 
-            # Buscamos el satelite conectado mas barato
+            # Pasamos a mejorar la prioridad de destino
             for b_sat in near_sats :
-                if b_sat not in visited_ids:
+                if sats_dict[b_sat]["location"] == ironman_location:
+                    best_sat = b_sat
+                    # Calculamos coste de este ultimo salto
                     weather = sats_dict[b_sat]["weather"]
-                    base_cost = 10.0
-
-                    if weather == "Lluvia":
-                        base_cost += 0.2
-                    elif weather == "Viento en contra" :
-                        base_cost += 1.5
+                    cost_min = 10.0
+                    
+                    if weather == "Lluvia" :
+                        cost_min += 0.2
+                    elif weather == "Viento en contra":
+                        cost_min += 1.5
                     elif weather == "Tormenta":
-                        base_cost += 2.0
+                        cost_min += 2.0
+                    break # Si se encuentra rompemos y no busca mas
 
-                    if base_cost < cost_min :
-                        cost_min = base_cost
-                        best_sat = b_sat
+            # Buscamos el satelite conectado mas barato
+            if best_sat is None :
+                for b_sat in near_sats :
+                    if b_sat not in visited_ids:
+                        weather = sats_dict[b_sat]["weather"]
+                        base_cost = 10.0
+
+                        if weather == "Lluvia":
+                            base_cost += 0.2
+                        elif weather == "Viento en contra" :
+                            base_cost += 1.5
+                        elif weather == "Tormenta":
+                            base_cost += 2.0
+
+                        if base_cost < cost_min :
+                            cost_min = base_cost
+                            best_sat = b_sat
 
             # Si no encontramos ruta paramos
             if best_sat is None : 
@@ -110,16 +127,11 @@ if __name__ == "__main__" :
             print(f"Vamos a {city} (gastamos {cost_min}u)")
 
         # Resultado final
-        print(f"\n** Resultado de la ruta **")
-        print("Ruta recorrida: ", " = ".join(location_I))
+        print(f"\n\t**** Resultado de la ruta ****")
+        print("Ruta recorrida: ", " => ".join(location_I))
         print("Combustible restante: ", round(intial_fuel,2))
 
         if sats_dict[origin_location_id]["location"] == ironman_location and intial_fuel >= 30 :
             print("Mision cumplida, buen reto")
         else:
             print("La mision fallo, el consumo total fue superior al que teniamos planteado utilizar.")
-
-
-
-
-
